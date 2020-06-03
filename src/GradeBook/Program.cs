@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace GradeBook
 {
@@ -7,14 +6,11 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            var grades = new List<double>() { 88.4, 81.67, 99.5 };
-
-            double result = 0.0;
-            foreach (double grade in grades)
-                result += grade;
-
-            var average = result / grades.Count;
-            Console.WriteLine($"Average of grades: {average:N1}");
+            var book = new Book("Pedro's grade book");
+            book.AddGrade(90.2);
+            book.AddGrade(88.54);
+            book.AddGrade(76.5);
+            book.ShowStatistics();
         }
     }
 }
