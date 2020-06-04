@@ -16,8 +16,10 @@ namespace GradeBook
 
         public void AddGrade(double grade)
         {
-            if ((grade >= 0) || (grade <= 100))
+            if ((grade >= 0) && (grade <= 100))
                 this.grades.Add(grade);
+            else
+                Console.WriteLine("Invalid grande value");
         }
 
         private double MinGrade()
@@ -63,6 +65,16 @@ namespace GradeBook
             Console.WriteLine($"The lowest grade is {statistics.Low}");
             Console.WriteLine($"The highest grade is {statistics.High}");
             Console.WriteLine($"The average grade is {statistics.Average}");
+        }
+
+        public double GetLastGrade()
+        {
+            var lastGrade = 0.0;
+            if (this.grades.Count != 0)
+            {
+                lastGrade = this.grades[grades.Count - 1];
+            }
+            return lastGrade;
         }
     }
 }

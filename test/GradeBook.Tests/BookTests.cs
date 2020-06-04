@@ -6,6 +6,17 @@ namespace GradeBook.Tests
     public class BookTests
     {
         [Fact]
+        public void AddGradeDoesNotAddNegative()
+        {
+            var grade = -13.0;
+
+            var book = new Book("grades");
+            book.AddGrade(grade);
+
+            Assert.Equal(0.0, book.GetLastGrade());
+        }
+
+        [Fact]
         public void TestGetStatistics()
         {
             // arrange
