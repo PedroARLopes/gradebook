@@ -22,7 +22,7 @@ namespace GradeBook
             book.ShowStatistics();
         }
 
-        private static void EnterGrades(string letterRegex, string numberRegex, Book book)
+        private static void EnterGrades(string letterRegex, string numberRegex, IBook book)
         {
             while (true)
             {

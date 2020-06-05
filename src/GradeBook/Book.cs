@@ -3,14 +3,21 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
-    public abstract class Book : NamedObject
+    public abstract class Book : NamedObject, IBook
     {
         protected Book(string name) : base(name)
         {
         }
 
+        public virtual event GradeAddedDelegate GradeAdded;
+
         public abstract void AddGrade(double grade);
         public abstract void AddGrade(char grade);
+
+        public virtual Statistics GetStatistics()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class InMemoryBook : Book
@@ -24,7 +31,7 @@ namespace GradeBook
             this.grades = new List<double>();
         }
 
-        public event GradeAddedDelegate GradeAdded;
+        public override event GradeAddedDelegate GradeAdded;
 
         public override void AddGrade(char letter)
         {
@@ -44,7 +51,6 @@ namespace GradeBook
                     grade = 0;
                     break;
             }
-            Console.WriteLine($"{letter} : {grade}");
             this.AddGrade(grade);
         }
 
@@ -111,7 +117,7 @@ namespace GradeBook
             return letter;
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
             statistics.High = this.MaxGrade();

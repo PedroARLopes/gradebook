@@ -8,7 +8,7 @@ namespace GradeBook.Tests
         [Fact]
         public void AverageLetterGradeComputation()
         {
-            var book = new Book("grades");
+            var book = new InMemoryBook("grades");
             book.AddGrade(89.0);
 
             Assert.Equal('B', book.LetterGrade(89.0));
@@ -19,7 +19,7 @@ namespace GradeBook.Tests
         {
             var grade = -13.0;
 
-            var book = new Book("grades");
+            var book = new InMemoryBook("grades");
             Assert.Throws<ArgumentException>(() => book.AddGrade(grade));
         }
 
@@ -27,7 +27,7 @@ namespace GradeBook.Tests
         public void TestGetStatistics()
         {
             // arrange
-            var book = new Book("");
+            var book = new InMemoryBook("");
             book.AddGrade(88.1);
             book.AddGrade(90.6);
             book.AddGrade(85.6);
