@@ -13,6 +13,7 @@ namespace GradeBook
             var letterGrade = new LetterGrade();
 
             Console.WriteLine("Insert book name: ");
+            // TODO: create switch to select book type?
             var book = new DiskBook(Console.ReadLine(), letterGrade);
             book.GradeAdded += OnGradeAdded;
 
