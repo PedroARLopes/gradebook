@@ -3,23 +3,10 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
-    public delegate void GradeAddedDelegate(object sender, BookEventArgs args);
-
-    public class BookEventArgs : EventArgs
-    {
-        public double grade { get; set; }
-
-        public BookEventArgs(double grade)
-        {
-            this.grade = grade;
-        }
-    }
-
-    public class Book
+    public class Book : NamedObject
     {
         public const string CATEGORY = "Science";
         List<double> grades;
-        public string Name { get; set; }
 
         public Book(string name)
         {
