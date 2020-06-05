@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace GradeBook
@@ -9,17 +10,22 @@ namespace GradeBook
         {
             var letterRegex = @"^[a-zA-Z]$";
             var numberRegex = @"^[\d.]+$";
+            var letterGrade = new LetterGrade();
 
             Console.WriteLine("Insert book name: ");
-            var book = new InMemoryBook(Console.ReadLine());
+            var book = new DiskBook(Console.ReadLine(), letterGrade);
             book.GradeAdded += OnGradeAdded;
 
             Console.WriteLine("Start inserting grades. Press Q to exit.");
             EnterGrades(letterRegex, numberRegex, book);
 
             Console.WriteLine($"--- Book statistics for {book.Name} ---");
-            Console.WriteLine($"The book category is {InMemoryBook.CATEGORY}");
-            book.ShowStatistics();
+            var grades = book.GetGrades();
+            for (int i = 0; i < grades.Count(); i++)
+                Console.WriteLine($"Grade {i + 1}: {grades.ElementAt(i)}");
+            Console.WriteLine($"The lowest grade is {book.GetLow():N1}");
+            Console.WriteLine($"The higuest grade is {book.GetHigh():N1}");
+            Console.WriteLine($"The average grade is {book.GetAverage():N1}");
         }
 
         private static void EnterGrades(string letterRegex, string numberRegex, IBook book)

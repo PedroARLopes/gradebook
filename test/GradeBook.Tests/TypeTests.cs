@@ -82,21 +82,21 @@ namespace GradeBook.Tests
         // function before it's returned
         private void GetBookSetName(ref InMemoryBook book, string name)
         {
-            book = new InMemoryBook(name);
+            book = new InMemoryBook(name, new LetterGrade());
         }
 
         [Fact]
         public void CanNotSetNameFromValue()
         {
             var book1 = GetBook("Book 1");
-            GetBookSetName(book1, "New book Name");
+            GetBookSetName(book1, "New book Name", new LetterGrade());
 
             Assert.Equal("Book 1", book1.Name);
         }
 
-        private void GetBookSetName(InMemoryBook book, string name)
+        private void GetBookSetName(InMemoryBook book, string name, ILetterGrade letterGrade)
         {
-            book = new InMemoryBook(name);
+            book = new InMemoryBook(name, letterGrade);
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace GradeBook.Tests
 
         InMemoryBook GetBook(string name)
         {
-            return new InMemoryBook(name);
+            return new InMemoryBook(name, new LetterGrade());
         }
     }
 }
