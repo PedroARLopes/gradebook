@@ -20,9 +20,7 @@ namespace GradeBook.Tests
             var grade = -13.0;
 
             var book = new Book("grades");
-            book.AddGrade(grade);
-
-            Assert.Equal(0.0, book.GetLastGrade());
+            Assert.Throws<ArgumentException>(() => book.AddGrade(grade));
         }
 
         [Fact]
