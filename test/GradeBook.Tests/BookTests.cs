@@ -6,6 +6,15 @@ namespace GradeBook.Tests
     public class BookTests
     {
         [Fact]
+        public void AverageLetterGradeComputation()
+        {
+            var book = new Book("grades");
+            book.AddGrade(89.0);
+
+            Assert.Equal('B', book.LetterGrade(89.0));
+        }
+
+        [Fact]
         public void AddGradeDoesNotAddNegative()
         {
             var grade = -13.0;
