@@ -10,7 +10,8 @@ namespace GradeBook
             var letterRegex = @"^[a-zA-Z]$";
             var numberRegex = @"^[\d.]+$";
 
-            var book = new Book("Pedro's grade book");
+            Console.WriteLine("Insert book name: ");
+            var book = new Book(Console.ReadLine());
 
             Console.WriteLine("Start inserting grades. Press Q to exit.");
             while (true)
@@ -51,7 +52,7 @@ namespace GradeBook
                 }
             }
 
-            Console.WriteLine("--- Book statistics ---");
+            Console.WriteLine($"--- Book statistics for {book.Name} ---");
             book.ShowStatistics();
         }
     }
