@@ -53,6 +53,7 @@ namespace GradeBook
             }
 
             Console.WriteLine($"--- Book statistics for {book.Name} ---");
+            Console.WriteLine($"The book category is {Book.CATEGORY}");
             book.ShowStatistics();
         }
     }

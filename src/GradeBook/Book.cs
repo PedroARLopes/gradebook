@@ -5,6 +5,7 @@ namespace GradeBook
 {
     public class Book
     {
+        public const string CATEGORY = "Science";
         List<double> grades;
         public string Name { get; private set; }
 
