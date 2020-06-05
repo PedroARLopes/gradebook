@@ -3,6 +3,18 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
+    public delegate void GradeAddedDelegate(object sender, BookEventArgs args);
+
+    public class BookEventArgs : EventArgs
+    {
+        public double grade { get; set; }
+
+        public BookEventArgs(double grade)
+        {
+            this.grade = grade;
+        }
+    }
+
     public class Book
     {
         public const string CATEGORY = "Science";
@@ -15,29 +27,39 @@ namespace GradeBook
             this.grades = new List<double>();
         }
 
+        public event GradeAddedDelegate GradeAdded;
+
         public void AddGrade(char letter)
         {
+            double grade;
             switch (letter)
             {
                 case 'A':
-                    this.AddGrade(90);
+                    grade = 90;
                     break;
                 case 'B':
-                    this.AddGrade(80);
+                    grade = 80;
                     break;
                 case 'C':
-                    this.AddGrade(70);
+                    grade = 70;
                     break;
                 default:
-                    this.AddGrade(0);
+                    grade = 0;
                     break;
             }
+            this.AddGrade(grade);
         }
 
         public void AddGrade(double grade)
         {
             if ((grade >= 0) && (grade <= 100))
+            {
                 this.grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new BookEventArgs(grade));
+                }
+            }
             else
                 throw new ArgumentException($"Invalid {nameof(grade)} value: {grade}");
         }
@@ -107,9 +129,9 @@ namespace GradeBook
         public void ShowStatistics()
         {
             var statistics = this.GetStatistics();
-            Console.WriteLine($"The lowest grade is {statistics.Low}");
-            Console.WriteLine($"The highest grade is {statistics.High}");
-            Console.WriteLine($"The average grade is {statistics.Average}");
+            Console.WriteLine($"The lowest grade is {statistics.Low:N1}");
+            Console.WriteLine($"The highest grade is {statistics.High:N1}");
+            Console.WriteLine($"The average grade is {statistics.Average:N1}");
             Console.WriteLine($"The average letter grade is {statistics.Letter}");
         }
 

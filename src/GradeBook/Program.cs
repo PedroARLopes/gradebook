@@ -12,6 +12,7 @@ namespace GradeBook
 
             Console.WriteLine("Insert book name: ");
             var book = new Book(Console.ReadLine());
+            book.GradeAdded += OnGradeAdded;
 
             Console.WriteLine("Start inserting grades. Press Q to exit.");
             while (true)
@@ -37,7 +38,6 @@ namespace GradeBook
                         Console.WriteLine(ex.Message);
                         continue;
                     }
-                    Console.WriteLine($"Inserted grade: {book.GetLastGrade()}");
                     continue;
                 }
 
@@ -47,7 +47,6 @@ namespace GradeBook
                     if (input.Length == 1)
                     {
                         book.AddGrade(input.ToCharArray()[0]);
-                        Console.WriteLine($"Inserted grade: {book.GetLastGrade()}");
                     }
                 }
             }
@@ -55,6 +54,11 @@ namespace GradeBook
             Console.WriteLine($"--- Book statistics for {book.Name} ---");
             Console.WriteLine($"The book category is {Book.CATEGORY}");
             book.ShowStatistics();
+        }
+
+        static void OnGradeAdded(object sender, BookEventArgs e)
+        {
+            Console.WriteLine($"Inserted grade: {e.grade}");
         }
     }
 }
