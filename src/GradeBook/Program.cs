@@ -11,10 +11,19 @@ namespace GradeBook
             var numberRegex = @"^[\d.]+$";
 
             Console.WriteLine("Insert book name: ");
-            var book = new Book(Console.ReadLine());
+            var book = new InMemoryBook(Console.ReadLine());
             book.GradeAdded += OnGradeAdded;
 
             Console.WriteLine("Start inserting grades. Press Q to exit.");
+            EnterGrades(letterRegex, numberRegex, book);
+
+            Console.WriteLine($"--- Book statistics for {book.Name} ---");
+            Console.WriteLine($"The book category is {InMemoryBook.CATEGORY}");
+            book.ShowStatistics();
+        }
+
+        private static void EnterGrades(string letterRegex, string numberRegex, Book book)
+        {
             while (true)
             {
                 Console.Write("Insert grade number or letter: ");
@@ -50,10 +59,6 @@ namespace GradeBook
                     }
                 }
             }
-
-            Console.WriteLine($"--- Book statistics for {book.Name} ---");
-            Console.WriteLine($"The book category is {Book.CATEGORY}");
-            book.ShowStatistics();
         }
 
         static void OnGradeAdded(object sender, BookEventArgs e)

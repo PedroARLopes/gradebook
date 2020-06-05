@@ -3,12 +3,22 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
-    public class Book : NamedObject
+    public abstract class Book : NamedObject
+    {
+        protected Book(string name) : base(name)
+        {
+        }
+
+        public abstract void AddGrade(double grade);
+        public abstract void AddGrade(char grade);
+    }
+
+    public class InMemoryBook : Book
     {
         public const string CATEGORY = "Science";
         List<double> grades;
 
-        public Book(string name)
+        public InMemoryBook(string name) : base(name) // construct inherited class with name
         {
             this.Name = name;
             this.grades = new List<double>();
@@ -16,7 +26,7 @@ namespace GradeBook
 
         public event GradeAddedDelegate GradeAdded;
 
-        public void AddGrade(char letter)
+        public override void AddGrade(char letter)
         {
             double grade;
             switch (letter)
@@ -34,10 +44,11 @@ namespace GradeBook
                     grade = 0;
                     break;
             }
+            Console.WriteLine($"{letter} : {grade}");
             this.AddGrade(grade);
         }
 
-        public void AddGrade(double grade)
+        public override void AddGrade(double grade)
         {
             if ((grade >= 0) && (grade <= 100))
             {
@@ -72,9 +83,7 @@ namespace GradeBook
         {
             double sum = 0.0;
             foreach (double grade in this.grades)
-            {
                 sum += grade;
-            }
             return sum / this.grades.Count;
         }
 
